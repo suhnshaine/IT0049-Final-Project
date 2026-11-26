@@ -10,6 +10,8 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+    use HasFactory, Notifiable;
+
     protected $fillable = [
         'username',
         'full_name',
@@ -18,8 +20,16 @@ class User extends Authenticatable
     ];
 
     protected $hidden = [
-        'password'
+        'password',
+        'remember_token'
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'password' => 'hashed',
+        ];
+    }
 
     public function sales()
     {
